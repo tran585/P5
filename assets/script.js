@@ -17,53 +17,50 @@ const slides = [
 	},
 ]
 
-let container_banner = document.querySelectorAll("#banner p, span")
-let arrow_left_right = document.querySelectorAll("#banner .arrow")
-let test = document.querySelector("#banner .banner-img")
-let bullet = document.querySelectorAll("#banner .dots .dot")
-let i = 0
-let d = 0
-bullet[i].classList.add("dot_selected")
+const textBanner = document.querySelectorAll("#banner p, span")
+const arrowLeft = document.querySelector("#banner .arrow_left")
+const arrowRight = document.querySelector("#banner .arrow_right")
+
+const imageBanner = document.querySelector("#banner .banner-img")
+const bullets = document.querySelectorAll("#banner .dots .dot")
+let index = 0
+let indexIntervalBullets = 0
+bullets[0].classList.add("dot_selected")
 
 
-//left
-arrow_left_right[0].addEventListener("click", function() {
-		d = +1
-		i--
-		d += i //pour l'itération du bullet right
-		if (i < 0) {
-			i = 3
-			d = 0
-			console.log(i)
-			console.log(d)
-		}
+function resetIndex(index) {
+	if (index < 0) {
+		index = 3
+	}
+	else if (index > 3) {
+		index = 0
+	}
+	return index
+}
+
+function iterationArrowImg() {
+	index = resetIndex(index)
+	imageBanner.src = slides[index].image
+	textBanner[0].innerHTML = slides[index].tagLine
+	bullets[index].classList.add("dot_selected")
+}
+
+
+
+function arrowsClick() {
+	arrowLeft.addEventListener("click", function(){
+		index--
 		console.log("arrow_left")
-		test.src = slides[i].image
-		container_banner[0].innerHTML = slides[i].tagLine
-		bullet[i].classList.add("dot_selected")
-		bullet[d].classList.remove("dot_selected")
-		console.log(i)
-		console.log(d)
-	}
-)
-
-//right
-arrow_left_right[1].addEventListener("click", function() {
-		d = -1
-		i++ 
-		d += i //pour l'itération du bullet right
-		if (i > 3) {
-			d = 3
-			i = 0
-			console.log(i)
-			console.log(d)
-		}
+		bullets[index +1].classList.remove("dot_selected")
+		iterationArrowImg()
+	})
+	arrowRight.addEventListener("click", function() {
+		index++
 		console.log("arrow_right")
-		test.src = slides[i].image
-		container_banner[0].innerHTML = slides[i].tagLine
-		bullet[i].classList.add("dot_selected")
-		bullet[d].classList.remove("dot_selected")
-		console.log(i)
-		console.log(d)
-	}
-)
+		bullets[index -1].classList.remove("dot_selected")
+		iterationArrowImg()
+	})
+}
+
+arrowsClick()
+
