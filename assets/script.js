@@ -17,15 +17,16 @@ const slides = [
 	},
 ]
 
-const textBanner = document.querySelectorAll("#banner p, span")
+const textBanner = document.querySelector("#banner p")
 const arrowLeft = document.querySelector("#banner .arrow_left")
 const arrowRight = document.querySelector("#banner .arrow_right")
 
-const imageBanner = document.querySelector("#banner .banner-img")
+const imgBanner = document.querySelector("#banner .banner-img")
 const bullets = document.querySelectorAll("#banner .dots .dot")
 let index = 0
 let indexIntervalBullets = 0
 bullets[0].classList.add("dot_selected")
+console.log(textBanner)
 
 
 function resetIndex(index) {
@@ -40,8 +41,8 @@ function resetIndex(index) {
 
 function iterationArrowImg() {
 	index = resetIndex(index)
-	imageBanner.src = slides[index].image
-	textBanner[0].innerHTML = slides[index].tagLine
+	imgBanner.src = slides[index].image
+	textBanner.innerHTML = slides[index].tagLine
 	bullets[index].classList.add("dot_selected")
 }
 
@@ -50,13 +51,13 @@ function iterationArrowImg() {
 function arrowsClick() {
 	arrowLeft.addEventListener("click", function(){
 		index--
-		console.log("arrow_left")
+		console.log("arrow left")
 		bullets[index +1].classList.remove("dot_selected")
 		iterationArrowImg()
 	})
 	arrowRight.addEventListener("click", function() {
 		index++
-		console.log("arrow_right")
+		console.log("arrow right")
 		bullets[index -1].classList.remove("dot_selected")
 		iterationArrowImg()
 	})
